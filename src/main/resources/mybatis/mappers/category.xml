@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="category">
-
+	
+	<!-- 카테고리 리스트 가져오기 (post 수 포함) -->
+	<select id="getList" parameterType="String" resultType="map">
+	<![CDATA[
+		select	c.cateNo,
+				cateName,
+				pcount,
+				description
+		from category c
+		left outer join
+		(select	count(*) pcount, c.cateNo
+		from category c, post p 
+		where p.cateNo = c.cateNo
+		group by c.cateNo) p
+		on c.cateNo = p.cateNo
+		where id = #{value}
+		order by c.cateNo desc
+	]]>
+	</select>
+	
+	<!-- 카테고리 추가 -->
+	<insert id="addCategory" parameterType="CategoryVo">
+		<selectKey keyProperty="cateNo" resultType="int" order="BEFORE">
+			select seq_category_no.nextval from dual
+		</selectKey>
+	
+	<![CDATA[
+		insert into category
+		values(#{cateNo}, #{id}, #{cateName}, #{description}, sysdate)
+	]]>
+	</insert>
+	<!-- 추가 후 정보 가져오기 -->
+	<select id="getCategory" parameterType="int" resultType="map">
+	<![CDATA[
+		select	c.cateNo,
+				cateName,
+				pcount,
+				description
+		from category c
+		left outer join
+		(select	count(*) pcount, c.cateNo
+		from category c, post p 
+		where p.cateNo = c.cateNo
+		group by c.cateNo) p
+		on c.cateNo = p.cateNo
+		where c.cateNo = #{cateNo}
+	]]>
+	</select>
+	
+	<!-- 카테고리 삭제 -->
+	<delete id="deleteCategory" parameterType="int">
+	<![CDATA[
+		delete from category
+		where cateNo = #{cateNo}
+	]]>
+	</delete>
+	
 </mapper>

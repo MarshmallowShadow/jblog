@@ -15,11 +15,12 @@ import com.javaex.vo.UserVo;
 @Controller
 public class UserController {
 	@Autowired
-	UserService uService;
+	private UserService uService;
 	
 	@RequestMapping(value="/joinForm", method= {RequestMethod.GET, RequestMethod.POST})
 	public String joinForm() {
 		//System.out.println("UserController > joinForm");
+		
 		return "user/joinForm";
 	}
 	

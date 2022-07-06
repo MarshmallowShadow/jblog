@@ -72,6 +72,11 @@
 	$("#btnIdCheck").on("click", function(){
 		var checkId = $("#txtId").val();
 		
+		if(checkId == ""){
+			alert("아이디를 입력해 주세요.");
+			return;
+		}
+		
 		$.ajax({
 			url : "${pageContext.request.contextPath}/api/user/checkId",
 			type : "post",
@@ -84,6 +89,7 @@
 				} else {
 					idChecked = true;
 					$("#txtId").attr("readonly", "readonly");
+					alert("사용 가능한 아이디입니다.");
 					$("#tdMsg").html('사용할 수 있는 아이디 입니다.');
 				}
 			},

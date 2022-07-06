@@ -11,7 +11,7 @@ import com.javaex.vo.BlogVo;
 @Repository
 public class BlogDao {
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 	
 	//회원가입 시 블로그도 만들기
 	public int join(BlogVo bVo) {

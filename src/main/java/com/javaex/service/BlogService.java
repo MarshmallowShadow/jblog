@@ -16,7 +16,8 @@ import com.javaex.vo.BlogVo;
 
 @Service
 public class BlogService {
-	@Autowired BlogDao bDao;
+	@Autowired
+	private BlogDao bDao;
 	
 	//블로그 정보 가져오기
 	public Map<String, String> getBlog(String id) {

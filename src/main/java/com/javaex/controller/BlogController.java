@@ -20,31 +20,28 @@ import com.javaex.vo.UserVo;
 @Controller
 public class BlogController {
 	@Autowired
-	BlogService bService;
+	private BlogService bService;
 	
 	@RequestMapping(value="/{id}", method= {RequestMethod.GET, RequestMethod.POST})
-	public String getBlog(@PathVariable String id, Model model) {
+	public String getBlog(@PathVariable String id, HttpSession session) {
 		//System.out.println("BlogController > getBlog");
 		//System.out.println(id);
 		
 		Map<String, String> bMap = bService.getBlog(id);
-		model.addAttribute("bMap", bMap);
+		session.setAttribute("bMap", bMap);
 		
 		return "blog/blog-main";
 	}
 	
 	@RequestMapping(value="/{id}/admin/basic", method= {RequestMethod.GET, RequestMethod.POST})
-	public String getBasic(@PathVariable String id, Model model, HttpSession session) {
+	public String getBasic(@PathVariable String id, HttpSession session) {
 		//System.out.println("BlogController > basic");
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		String checkId = authUser.getId();
 		if(!id.equals(checkId)) {
-			return "redirect:/" + id;
+			return "error/403";
 		}
-		
-		Map<String, String> bMap = bService.getBlog(id);
-		model.addAttribute("bMap", bMap);
 		
 		return "blog/admin/blog-admin-basic";
 	}
