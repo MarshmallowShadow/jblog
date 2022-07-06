@@ -67,4 +67,7 @@
 		<!-- defaultEncoding -->
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
+	
+	<!-- url매핑 -->
+	<mvc:resources mapping="/upload/**" location="file:C:/javaStudy/upload/" />
 </beans>
