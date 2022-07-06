@@ -1,24 +1,24 @@
 package com.javaex.vo;
 
 public class BlogVo {
-	private int id;
+	private String id;
 	private String blogTitle;
 	private String logoFile;
 	
 	public BlogVo() {}
 
-	public BlogVo(int id, String blogTitle, String logoFile) {
+	public BlogVo(String id, String blogTitle, String logoFile) {
 		super();
 		this.id = id;
 		this.blogTitle = blogTitle;
 		this.logoFile = logoFile;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
