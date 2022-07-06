@@ -100,7 +100,7 @@ div#footer		{ color:#666 }
 															 font-size: 18px; 
 															 background-color: #254EDB; 
 															 color: #ffffff;}
-#center-content #search-form fieldset				{ margin:10px 0 10px 0px;}
+#center-content #search-form fieldset				{ margin:10px 0 10px 0px; border: 0px;}
 #center-content #search-form input[type='radio']	{ margin-right:20px; }
 
 
