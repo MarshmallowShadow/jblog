@@ -19,9 +19,9 @@
 
 		<div id="content">
 			<ul id="admin-menu" class="clearfix">
-				<li class="tabbtn selected"><a href="">기본설정</a></li>
-				<li class="tabbtn"><a href="">카테고리</a></li>
-				<li class="tabbtn"><a href="">글작성</a></li>
+				<li class="tabbtn selected"><a href="${pageContext.request.contextPath}/${bMap.ID }/admin/basic">기본설정</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/${bMap.ID }/admin/category">카테고리</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/${bMap.ID }/admin/writeForm">글작성</a></li>
 			</ul>
 			<!-- //admin-menu -->
 			
@@ -79,7 +79,7 @@
 		      		</tr>
 		      		<tr>
 		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
+		      			<td><input type="text" name="description"></td>
 		      		</tr>
 		      	</table> 
 			

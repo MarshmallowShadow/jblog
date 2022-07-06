@@ -67,6 +67,8 @@
 </body>
 
 <script type="text/javascript">
+	var idChecked = false;
+	
 	$("#btnIdCheck").on("click", function(){
 		var checkId = $("#txtId").val();
 		
@@ -80,6 +82,8 @@
 				if(check == false) {
 					$("#tdMsg").html('<font color="red">사용할 수 없는 아이디 입니다.</font>');
 				} else {
+					idChecked = true;
+					$("#txtId").attr("readonly", "readonly");
 					$("#tdMsg").html('사용할 수 있는 아이디 입니다.');
 				}
 			},
@@ -92,6 +96,10 @@
 	$("#joinForm").on("submit", function(){
 		if($("#txtId").val() == "" || $("#txtId").val() == null){
 			alert("아이디를 입력해 주세요.");
+			return false;
+		}
+		if(idChecked == false){
+			alert("중복확인 해주세요.");
 			return false;
 		}
 		if($("#txtPassword").val().length < 8 || $("#txtPassword").val() == null){
