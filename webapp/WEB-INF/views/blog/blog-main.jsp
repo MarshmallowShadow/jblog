@@ -34,13 +34,9 @@
 						<strong>카테고리</strong>
 					</div>
 					<ul id="cateList" class="text-left">
-						<li><a href="$}">카테고리5</a></li>
-						<li><a href="$}">카테고리4</a></li>
-						<li><a href="$}">카테고리3</a></li>
-						<li><a href="$}">카테고리2</a></li>
-						<li><a href="$}">카테고리1</a></li>
-						<li><a href="$}">미분류</a></li>
-						
+						<c:forEach items="${cList }" var="cVo">
+							<li><a class="cateItem" href="" data-cateNo="${cVo.cateNo }">${cVo.cateName }</a></li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -77,16 +73,12 @@
 				
 				<div id="list">
 					<div id="listTitle" class="text-left"><strong>카테고리의 글</strong></div>
-					<table>
+					<table id="listTable">
 						<colgroup>
 							<col style="">
 							<col style="width: 20%;">
 						</colgroup>
 						
-						<tr>
-							<td class="text-left"><a href="">08.페이징</a></td>
-							<td class="text-right">2020/07/23</td>
-						</tr>
 						<tr>
 							<td class="text-left"><a href="">07.첨부파일_MultipartResolver</a></td>
 							<td class="text-right">2020/07/23</td>
@@ -123,4 +115,94 @@
 	</div>
 	<!-- //wrap -->
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		getRecent(cateNo);
+		getList(cateNo);
+	});
+	
+	#{"#cateList"}.on("click", ".cateItem", function(){
+		var cateNo = $(this).data("cateNo");
+		getRecent(cateNo);
+		getList(cateNo);
+	});
+	
+	#{"#listTable"}.on("click", ".postItem", function(){
+		
+	});
+	
+	function getRecent(cateNo) {
+		if(cateNo == 0) {
+			renderPost(null);
+			return;
+		}
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/api/post/getRecent",
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(cateNo),
+			dataType : "json",
+			success : function(pList){
+				var pList = pMap.pList;
+				for(var i=0; i<pList.length; i++) {
+					renderList(pList[i]);
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	};
+	
+	function getList() {
+		$.ajax({
+			url : "${pageContext.request.contextPath}/api/post/getRecent",
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(cateNo),
+			dataType : "json",
+			success : function(pMap){
+				renderPost(pMap);
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	}
+	
+	function renderPost(pMap) {
+		var str = '';
+		
+		if(pVo == null) {
+			str += '<div id="postBox" class="clearfix">';
+			str += '	<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>';
+			str += '	<div id="postDate" class="text-left"><strong></strong></div>';
+			str += '	<div id="postNick"></div>';
+			str += '</div>';
+			str += '<div id="post">';
+			str += '</div>';
+		} else {
+			str += '<div id="postBox" class="clearfix">';
+			str += '	<div id="postTitle" class="text-left"><strong>' + pMap.POSTTITLE + '</strong></div>';
+			str += '	<div id="postDate" class="text-left"><strong>' + pMap.REGDATE + '</strong></div>';
+			str += '	<div id="postNick">' + pMap.USERNAME + '(' + pMap.ID + ')</div>';
+			str += '</div>';
+			str += '<div id="post">' + pMap.POSTCONTENT + '</div>';
+		}
+		
+	}
+	
+	function renderList(pVo) {
+		var str = '';
+		str += '<tr>';
+		str += '	<td class="text-left postItem" data-postno="' + pVo.postNo + '"><a href="">' + pVo.postTitle + '</a></td>';
+		str += '	<td class="text-right">' + pVo.regDate + '</td>';
+		str += '</tr>';
+		
+		$("#listTable").append(str);
+	}
+</script>
+
 </html>

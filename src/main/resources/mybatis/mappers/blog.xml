@@ -22,6 +22,16 @@
 	]]>
 	</select>
 	
+	<!-- 블로그 헤더 -->
+	<select id="getHeader" parameterType="String" resultType="map">
+	<![CDATA[
+		select	id,
+				blogTitle
+		from blog
+		where id = #{value}
+	]]>
+	</select>
+	
 	<!-- 블로그 로고 이름 가져오기 -->
 	<select id="getLogoFile" parameterType="String" resultType="String">
 	<![CDATA[

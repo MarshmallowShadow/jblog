@@ -1,5 +1,6 @@
 package com.javaex.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.CategoryVo;
 import com.javaex.vo.UserVo;
 
 @Controller
@@ -23,25 +25,29 @@ public class BlogController {
 	private BlogService bService;
 	
 	@RequestMapping(value="/{id}", method= {RequestMethod.GET, RequestMethod.POST})
-	public String getBlog(@PathVariable String id, HttpSession session) {
+	public String getBlog(@PathVariable String id, Model model) {
 		//System.out.println("BlogController > getBlog");
 		//System.out.println(id);
 		
-		Map<String, String> bMap = bService.getBlog(id);
-		session.setAttribute("bMap", bMap);
+		Map<String, Object> blogMap = bService.getBlog(id);
+		model.addAttribute("bMap", blogMap.get("bMap"));
+		model.addAttribute("cList", blogMap.get("cList"));
+		model.addAttribute("cateNo", blogMap.get("cateNo"));
 		
 		return "blog/blog-main";
 	}
 	
 	@RequestMapping(value="/{id}/admin/basic", method= {RequestMethod.GET, RequestMethod.POST})
-	public String getBasic(@PathVariable String id, HttpSession session) {
+	public String getBasic(@PathVariable String id, HttpSession session, Model model) {
 		//System.out.println("BlogController > basic");
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		String checkId = authUser.getId();
-		if(!id.equals(checkId)) {
+		Map<String, String> bMap = bService.getBasic(id, checkId);
+		if(bMap == null) {
 			return "error/403";
 		}
+		model.addAttribute("bMap", bMap);
 		
 		return "blog/admin/blog-admin-basic";
 	}

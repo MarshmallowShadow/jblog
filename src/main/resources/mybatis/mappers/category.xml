@@ -59,10 +59,11 @@
 	</delete>
 	
 	<!-- 글 작성할때 카테고리 리스트 가져오기 -->
-	<select id="getNameList" resultType="CategoryVo">
+	<select id="getNameList" resultType="CategoryVo" parameterType="String">
 	<![CDATA[
 		select cateNo, cateName
 		from category
+		order by cateNo desc
 	]]>
 	</select>
 </mapper>

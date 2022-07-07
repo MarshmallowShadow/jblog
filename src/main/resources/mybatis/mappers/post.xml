@@ -9,5 +9,26 @@
 	]]>
 	</insert>
 	
+	<!-- 최신글 가져오기 -->
+	<select id="getPost" parameterType="map" resultType="map">
+	<![CDATA[
+		select	postTitle,
+				to_char(p.regDate, 'YYYY/MM/DD') REGDATE,
+				u.id,
+				u.userName,
+				from post p, users u, category c
+				where p.cateNo = c.cateNo
+				and c.id = u.id
+				and p.id = #{id}
+				and postNo = #{postNo}
+	]]>
+	</select>
 	
+	<!-- 개인블로그 포스트 리스트 가져오기 -->
+	<select id="getList" parameterType="int" resultType="PostVo">
+	<![CDATA[
+		select postNo, postTitle, regDate
+		from post
+	]]>
+	</select>
 </mapper>

@@ -48,13 +48,4 @@ public class ApiCategoryController {
 		int count = cService.deleteCategory(cateNo);
 		return count;
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="/getNameList", method= {RequestMethod.GET, RequestMethod.POST})
-	public List<CategoryVo> getNameList() {
-		//System.out.println("ApiCategoryController > getNameList");
-		
-		List<CategoryVo> cVo = cService.getNameList();
-		return cVo;
-	}
 }

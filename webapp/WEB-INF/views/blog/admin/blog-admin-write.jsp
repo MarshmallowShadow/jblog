@@ -40,7 +40,10 @@
 				      		</td>
 				      		<td>
 				      			<select name="cateNo">
-				      				<!-- 카테고리 리스트 영역 -->
+			      				<c:forEach items="${cList }" var="cVo">
+			      					<option value="${cVo.cateNo }">${cVo.cateName }</option>
+			      				</c:forEach>
+				      			<!-- 카테고리 리스트 영역 -->
 				      			</select>
 				      		</td>
 			      		</tr>
@@ -65,29 +68,5 @@
 	</div>
 	<!-- //wrap -->
 </body>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-			url : "${pageContext.request.contextPath}/api/category/getNameList",
-			type : "post",
-			dataType : "json",
-			success : function(cList){
-				console.log(cList);
-				for(var i=0; i<cList.length; i++){
-					render(cList[i]);
-				}
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-		});
-	});
-	
-	function render(cVo) {
-		var str = '<option value="' + cVo.cateNo + '">' + cVo.cateName + '</option>';
-		$("[name=cateNo]").append(str);
-	}
-</script>
 
 </html>

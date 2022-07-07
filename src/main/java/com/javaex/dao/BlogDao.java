@@ -21,11 +21,21 @@ public class BlogDao {
 		return count;
 	}
 	
-	//블로그 정보 가져오기
+	//개인 블로그 정보 가져오기
 	public Map<String, String> getBlog(String id) {
 		//System.out.println("BlogDao > getBlog");
 		
 		Map<String, String> bMap = sqlSession.selectOne("blog.getBlog", id);
+		//System.out.println(bMap);
+		
+		return bMap;
+	}
+	
+	//블로그 헤더 정보 가져오기
+	public Map<String, String> getHeader(String id) {
+		//System.out.println("BlogDao > getBlog");
+		
+		Map<String, String> bMap = sqlSession.selectOne("blog.getHeader", id);
 		//System.out.println(bMap);
 		
 		return bMap;

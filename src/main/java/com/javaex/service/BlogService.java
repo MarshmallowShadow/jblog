@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -12,16 +14,50 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.BlogDao;
+import com.javaex.dao.CategoryDao;
+import com.javaex.dao.PostDao;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
 
 @Service
 public class BlogService {
 	@Autowired
 	private BlogDao bDao;
 	
+	@Autowired
+	private PostDao pDao;
+	
+	@Autowired
+	private CategoryDao cDao;
+	
 	//블로그 정보 가져오기
-	public Map<String, String> getBlog(String id) {
+	public Map<String, Object> getBlog(String id) {
 		//System.out.println("BlogService > getBlog");
+		
+		Map<String, Object> blogMap = new HashMap<>();
+		//블로그 정보
+		Map<String, String> bMap = bDao.getBlog(id);
+		blogMap.put("bMap", bMap);
+		//카테고리 영역
+		List<CategoryVo> cList = cDao.getNameList(id);
+		blogMap.put("cList", cList);
+		if(cList == null) {
+			blogMap.put("cateNo", 0);
+		} else {
+			blogMap.put("cateNo", cList.get(0).getCateNo());
+		}
+		
+		return blogMap;
+	}
+	
+	//블로그 수정 페이지 정보 가져오기
+	public Map<String, String> getBasic(String id, String checkId) {
+		//System.out.println("BlogService > getHeader");
+		
+		if(!id.equals(checkId)) {
+			return null;
+		}
 		
 		Map<String, String> bVo = bDao.getBlog(id);
 		return bVo;
