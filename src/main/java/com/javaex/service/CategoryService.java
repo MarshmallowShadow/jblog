@@ -42,4 +42,12 @@ public class CategoryService {
 		int count = cDao.delteCategory(cateNo);
 		return count;
 	}
+	
+	//글 작성용 카테고리 리스트 가져오기
+	public List<CategoryVo> getNameList() {
+		System.out.println("CategoryService > getNameList");
+		
+		List<CategoryVo> cList = cDao.getNameList();
+		return cList;
+	}
 }

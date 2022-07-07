@@ -3,6 +3,8 @@ package com.javaex.api.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.CategoryService;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.UserVo;
 
 @RequestMapping(value="/api/category")
 @Controller
@@ -44,5 +47,14 @@ public class ApiCategoryController {
 		
 		int count = cService.deleteCategory(cateNo);
 		return count;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getNameList", method= {RequestMethod.GET, RequestMethod.POST})
+	public List<CategoryVo> getNameList() {
+		//System.out.println("ApiCategoryController > getNameList");
+		
+		List<CategoryVo> cVo = cService.getNameList();
+		return cVo;
 	}
 }

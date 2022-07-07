@@ -50,4 +50,14 @@ public class CategoryDao {
 		int count = sqlSession.delete("category.deleteCategory", cateNo);
 		return count;
 	}
+	
+	//글 작성용 카테고리 가져오기
+	public List<CategoryVo> getNameList() {
+		System.out.println("CategoryDao > getNameList");
+		
+		List<CategoryVo> cVo = sqlSession.selectList("category.getNameList");
+		System.out.println(cVo);
+		
+		return cVo;
+	}
 }
