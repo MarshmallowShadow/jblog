@@ -1,5 +1,6 @@
 package com.javaex.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,15 +21,24 @@ public class PostDao {
 		int count = sqlSession.insert("post.write", pVo);
 		return count;
 	}
-	
-	//최신글 가져오기
-	public PostVo getPost(Map<String, Object> pMap) {
-		//System.out.println("PostDao > getRecent");
+
+	//글 리스트 가져오기
+	public List<PostVo> getList(int cateNo) {
+		System.out.println("PostDao > getList");
 		
-		PostVo recentPost = sqlSession.selectOne("post.getRecent", pMap);
-		return recentPost;
+		List<PostVo> pList = sqlSession.selectList("post.getList", cateNo);
+		System.out.println(pList);
+		
+		return pList;
 	}
 	
-	//글 리스트 가져오기
-	
+	//글 가져오기
+	public Map<String, String> getPost(int postNo) {
+		System.out.println("PostDao > getPost");
+		
+		Map<String, String> pMap = sqlSession.selectOne("post.getPost", postNo);
+		System.out.println(pMap);
+		
+		return pMap;
+	}
 }

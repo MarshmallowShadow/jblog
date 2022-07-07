@@ -32,7 +32,7 @@ public class BlogService {
 	private CategoryDao cDao;
 	
 	//블로그 정보 가져오기
-	public Map<String, Object> getBlog(String id) {
+	public Map<String, Object> getBlog(String id, int cateNo, int postNo) {
 		//System.out.println("BlogService > getBlog");
 		
 		Map<String, Object> blogMap = new HashMap<>();
@@ -42,11 +42,20 @@ public class BlogService {
 		//카테고리 영역
 		List<CategoryVo> cList = cDao.getNameList(id);
 		blogMap.put("cList", cList);
-		if(cList == null) {
-			blogMap.put("cateNo", 0);
-		} else {
-			blogMap.put("cateNo", cList.get(0).getCateNo());
+		//개시글 영역
+		List<PostVo> pList = null;
+		if(cList != null && cateNo == 0 && postNo == 0) {
+			cateNo = cList.get(0).getCateNo();
 		}
+		pList = pDao.getList(cateNo);
+		blogMap.put("pList", pList);
+		//view용 개시글
+		Map<String, String> pMap = null;
+		if(pList != null && postNo == 0) {
+			postNo = pList.get(0).getPostNo();
+		}
+		pMap = pDao.getPost(postNo);
+		blogMap.put("pMap", pMap);
 		
 		return blogMap;
 	}

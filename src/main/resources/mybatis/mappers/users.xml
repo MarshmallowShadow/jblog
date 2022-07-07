@@ -21,7 +21,7 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="UserVo" resultType="UserVo">
 	<![CDATA[
-		select userNo, id
+		select userNo, userName, id
 		from users
 		where id = #{id}
 		and password = #{password}

@@ -10,16 +10,16 @@
 	</insert>
 	
 	<!-- 최신글 가져오기 -->
-	<select id="getPost" parameterType="map" resultType="map">
+	<select id="getPost" parameterType="int" resultType="map">
 	<![CDATA[
 		select	postTitle,
+				postContent,
 				to_char(p.regDate, 'YYYY/MM/DD') REGDATE,
 				u.id,
-				u.userName,
+				u.userName
 				from post p, users u, category c
 				where p.cateNo = c.cateNo
 				and c.id = u.id
-				and p.id = #{id}
 				and postNo = #{postNo}
 	]]>
 	</select>
@@ -27,8 +27,10 @@
 	<!-- 개인블로그 포스트 리스트 가져오기 -->
 	<select id="getList" parameterType="int" resultType="PostVo">
 	<![CDATA[
-		select postNo, postTitle, regDate
+		select postNo, cateNo, postTitle, to_char(regDate, 'YYYY/MM/DD') regDate
 		from post
+		where cateNo = #{cateNo}
+		order by regDate
 	]]>
 	</select>
 </mapper>

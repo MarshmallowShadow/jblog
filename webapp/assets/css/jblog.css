@@ -187,6 +187,14 @@ div#footer		{ color:#666 }
 #post_area #list table tr {border-bottom: 1px solid #B7B7B7; }
 #post_area #list table td {padding: 6px 5px 6px 5px; }
 
+/*개인블로그 코멘트 영역*/
+#comment_area {font-size: 15px; }
+#comment_area table {width: 700px; border: 1px solid #000000; border-collapse: collapse; margin: auto;}
+#comment_area #cmtForm {background-color: #b7b7b7; }
+#comment_area td {height: 30px; padding: 5px 10px; }
+#comment_area [type='text'] {padding:5px 0px; width:500px; font-size: 15px; }
+#comment_area #btnComment {padding: 5px 10px; font-size: 15px; }
+#comment_area .cmtView {text-align: left; }
 
 /****************************************************************/
 /* 개인블로그 어드민 ***************************************************/
