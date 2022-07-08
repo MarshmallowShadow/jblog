@@ -27,7 +27,8 @@ public class BlogController {
 	@RequestMapping(value="/{id}", method= {RequestMethod.GET, RequestMethod.POST})
 	public String getBlog(@PathVariable String id, Model model,
 			@RequestParam(value="cateNo", required=false, defaultValue="0") int cateNo,
-			@RequestParam(value="postNo", required=false, defaultValue="0") int postNo) {
+			@RequestParam(value="postNo", required=false, defaultValue="0") int postNo,
+			@RequestParam(value="pageNo", required=false, defaultValue="1") int pageNo) {
 		//System.out.println("BlogController > getBlog");
 		System.out.println(id);
 		

@@ -83,25 +83,14 @@
 						</tr>
 						</c:if>
 					</table>
-					<table>
+					<table id="tableCmtView">
 						<colgroup>
 							<col style="width: 100px">
 							<col style="width: 400px">
 							<col style="width: 150px">
 							<col style="width: 50px">
 						</colgroup>
-						<c:forEach items="${comList }" var="cMap">
-							<tr>
-								<td>${cMap.USERNAME }</td>
-								<td class="cmtView">${cMap.CMTCONTENT }</td>
-								<td>${cMap.REGDATE }</td>
-								<td>
-								<c:if test="${authUser.userId = cMap.USERID }">
-									<a><strong><font color="red">x</font></strong></a>
-								</c:if>
-								</td>
-							</tr>
-						</c:forEach>
+						<tbody id="tbodyCmtView"></tbody>
 					</table>
 				</div> <!-- comment_area -->
 				
@@ -137,9 +126,94 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		postNo = parseInt("${postNo}");
+		var postNo = parseInt("${pMap.POSTNO}");
 		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/api/comments/getList",
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(postNo),
+			dataType : "json",
+			success : function(comList){
+				for(var i=0; i < comList.length; i++) {
+					render(comList[i], 'bottom');
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
 	});
+	
+	$("#btnComment").on("click", function(){
+		var userNo = '${authUser.userNo }';
+		var postNo = parseInt("${pMap.POSTNO}");
+		var cmtContent = $("[name=cmtContent]").val();
+		
+		var comVo = {
+			postNo: postNo,
+			userNo: userNo,
+			cmtContent: cmtContent
+		};
+		
+		console.log(comVo);
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/api/comments/addComment",
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(comVo),
+			dataType : "json",
+			success : function(comMap){
+				render(comMap, 'top');
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+	
+	$("#tableCmtView").on("click", ".com_del", function(){
+		var $this = $(this);
+		var cmtNo = $this.data("cmtno");
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/api/comments/delete",
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(cmtNo),
+			dataType : "json",
+			success : function(count){
+				if(count > 0){
+					$("#c" + cmtNo).remove();
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+	
+	function render(cMap, order) {
+		var str = '';
+		str += '<tr id="c'+ cMap.CMTNO +'">';
+		str += '	<td>'+cMap.USERNAME+'</td>';
+		str += '	<td class="cmtView">'+cMap.CMTCONTENT+'</td>';
+		str += '	<td>'+cMap.REGDATE+'</td>';
+		str += '	<td>';
+		if('${authUser.id}' == cMap.ID){
+			str += '		<span class="com_del" data-cmtno="' + cMap.CMTNO + '" style="cursor: pointer"><strong><font color="red">x</font></strong></span>';
+		}
+		str += '	</td>';
+		str += '</tr>';
+		
+		if(order == 'bottom'){
+			$("#tbodyCmtView").append(str);
+		} else {
+			$("#tbodyCmtView").prepend(str);
+		}
+		
+	}
 </script>
 
 </html>

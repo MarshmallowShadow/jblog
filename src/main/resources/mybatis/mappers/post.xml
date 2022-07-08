@@ -12,7 +12,8 @@
 	<!-- 최신글 가져오기 -->
 	<select id="getPost" parameterType="int" resultType="map">
 	<![CDATA[
-		select	postTitle,
+		select	postNo,
+				postTitle,
 				postContent,
 				to_char(p.regDate, 'YYYY/MM/DD') REGDATE,
 				u.id,
