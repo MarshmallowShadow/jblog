@@ -15,6 +15,10 @@ a:visited {text-decoration: none; color: #000000; }
 a:active {text-decoration: none; color: #000000; }
 a:hover {text-decoration: none; color: #000000; }
 
+/*페이징 공통*/
+#paging {margin:auto; padding-left:50%; }
+#paging ol {padding-right: 50%; }
+#paging a {float: left; margin: 0px 10px; }
 
 /* 버튼 공통*/
 .btn_s {

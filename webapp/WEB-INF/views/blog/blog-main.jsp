@@ -110,16 +110,37 @@
 					</table>
 				</div>
 				<!-- //list -->
+				
+				<c:if test="${pageMap != null }">
+				<div id="paging">
+					<ol>
+					<c:if test="${pageMap.prev }">
+						<li><a href="${pageContext.request.contextPath }/${bMap.ID}?postNo=${pMap.POSTNO }&cateNo=${pMap.CATENO }&pageNo=${pageMap.startPage-1 }">◀</a></li>
+					</c:if>
+					<c:forEach begin="${pageMap.startPage }" end="${pageMap.endPage }" step="1" var="pageNum">
+						<c:choose>
+							<c:when test="${pageNum == pageMap.currPage }">
+								<li><strong><a href="${pageContext.request.contextPath }/${bMap.ID}?postNo=${pMap.POSTNO }&cateNo=${pMap.CATENO }&pageNo=${pageNum }">${pageNum }</a></strong></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/${bMap.ID}?postNo=${pMap.POSTNO }&cateNo=${pMap.CATENO }&pageNo=${pageNum }">${pageNum }</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${pageMap.next }">
+						<li><a href="${pageContext.request.contextPath }/${bMap.ID}?postNo=${pMap.POSTNO }&cateNo=${pMap.CATENO }&pageNo=${pageMap.endPage + 1 }">▶</a></li>
+					</c:if>
+					</ol>
+				</div> <!-- paging -->
+				</c:if>
 			</div>
 			<!-- //post_area -->
 			
-		</div>	
+		</div>
 		<!-- //content -->
 		<div class=></div>
 		<c:import url="/WEB-INF/views/includes/blog-footer.jsp"></c:import>
 		
-	
-	
 	</div>
 	<!-- //wrap -->
 </body>

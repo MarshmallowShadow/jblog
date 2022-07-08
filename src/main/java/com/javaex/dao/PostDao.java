@@ -32,6 +32,18 @@ public class PostDao {
 		return pList;
 	}
 	
+	//지정된 페이지에서 리스트 가져오기
+	public List<PostVo> getList(Map<String, Object> dMap, int start, int end) {
+		//System.out.println("PostDao > getList");
+		
+		dMap.put("start", start);
+		dMap.put("end", end);
+		List<PostVo> pList = sqlSession.selectList("post.getPageList", dMap);
+		//System.out.println(pList);
+		
+		return pList;
+	}
+	
 	//글 가져오기
 	public Map<String, String> getPost(Map<String, Object> dMap) {
 		//System.out.println("PostDao > getPost");
@@ -40,5 +52,13 @@ public class PostDao {
 		//System.out.println(pMap);
 		
 		return pMap;
+	}
+	
+	//글 총 횟수 가져오기
+	public int getCount(int cateNo) {
+		//System.out.println("PostDao > getCount");
+		
+		int count = sqlSession.selectOne("post.getCount", cateNo);
+		return count;
 	}
 }

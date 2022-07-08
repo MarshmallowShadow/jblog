@@ -32,11 +32,12 @@ public class BlogService {
 	private CategoryDao cDao;
 	
 	//블로그 정보 가져오기
-	public Map<String, Object> getBlog(String id, int cateNo, int postNo) {
+	public Map<String, Object> getBlog(String id, int cateNo, int postNo, int pageNo) {
 		//System.out.println("BlogService > getBlog");
 		
 		//컨트롤러로 한번에 보낼 정보
 		Map<String, Object> blogMap = new HashMap<>();
+		
 		//다오로 보낼 정보
 		Map<String, Object> dMap = new HashMap<>();
 		dMap.put("id", id);
@@ -44,9 +45,11 @@ public class BlogService {
 		//블로그 정보
 		Map<String, String> bMap = bDao.getBlog(id);
 		blogMap.put("bMap", bMap);
+		
 		//카테고리 영역
 		List<CategoryVo> cList = cDao.getNameList(id);
 		blogMap.put("cList", cList);
+		
 		//개시글 영역
 		List<PostVo> pList = null;
 		if(cList != null && cateNo == 0 && postNo == 0) {
@@ -55,8 +58,15 @@ public class BlogService {
 			}
 		}
 		dMap.put("cateNo", cateNo);
-		pList = pDao.getList(dMap);
+		if(cateNo != 0) {
+			//페이지 순번
+			int start = (pageNo-1) * 5 + 1;
+			int end = pageNo * 5;
+			
+			pList = pDao.getList(dMap, start, end);
+		}
 		blogMap.put("pList", pList);
+		
 		//view용 개시글
 		Map<String, String> pMap = null;
 		if(pList != null && postNo == 0) {
@@ -64,9 +74,43 @@ public class BlogService {
 				postNo = pList.get(0).getPostNo();
 			}
 		}
-		dMap.put("postNo", postNo);
-		pMap = pDao.getPost(dMap);
+		if(postNo != 0) {
+			dMap.put("postNo", postNo);
+			pMap = pDao.getPost(dMap);
+		}
 		blogMap.put("pMap", pMap);
+		
+		//페이지 순번 구하기
+		Map<String, Object> pageMap = null;
+		if(postNo != 0) {
+			pageMap = new HashMap<>();
+			int currPage = pageNo;
+			int maxPage = (int)Math.ceil(pDao.getCount(cateNo)/(double)5);
+			//System.out.println(maxPage);
+			int startPage = ((int)Math.floor(pageNo/(double)5) * 5) + 1;
+			//System.out.println(startPage);
+			int endPage = (int)Math.ceil(pageNo/(double)5) * 5;
+			if(endPage > maxPage) {
+				endPage = maxPage;
+			}
+			//System.out.println(endPage);
+			boolean prev = true;
+			if(startPage == 1) {
+				prev = false;
+			}
+			boolean next = true;
+			if(endPage >= maxPage) {
+				next = false;
+			}
+			pageMap.put("startPage", startPage);
+			pageMap.put("currPage", currPage);
+			pageMap.put("endPage", endPage);
+			pageMap.put("prev", prev);
+			pageMap.put("next", next);
+			
+			blogMap.put("pageMap", pageMap);
+		}
+		
 		
 		return blogMap;
 	}

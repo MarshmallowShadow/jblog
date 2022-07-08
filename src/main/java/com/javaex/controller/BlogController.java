@@ -30,13 +30,14 @@ public class BlogController {
 			@RequestParam(value="postNo", required=false, defaultValue="0") int postNo,
 			@RequestParam(value="pageNo", required=false, defaultValue="1") int pageNo) {
 		//System.out.println("BlogController > getBlog");
-		System.out.println(id);
+		//System.out.println(id);
 		
-		Map<String, Object> blogMap = bService.getBlog(id, cateNo, postNo);
+		Map<String, Object> blogMap = bService.getBlog(id, cateNo, postNo, pageNo);
 		model.addAttribute("bMap", blogMap.get("bMap"));
 		model.addAttribute("cList", blogMap.get("cList"));
 		model.addAttribute("pList", blogMap.get("pList"));
 		model.addAttribute("pMap", blogMap.get("pMap"));
+		model.addAttribute("pageMap", blogMap.get("pageMap"));
 		
 		return "blog/blog-main";
 	}
@@ -69,4 +70,6 @@ public class BlogController {
 		
 		return "redirect:/" + id;
 	}
+	
+	
 }
