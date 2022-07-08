@@ -137,6 +137,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		postNo = parseInt("${postNo}");
 		
 	});
 </script>

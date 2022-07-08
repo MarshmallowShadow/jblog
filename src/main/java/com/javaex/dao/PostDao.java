@@ -23,21 +23,21 @@ public class PostDao {
 	}
 
 	//글 리스트 가져오기
-	public List<PostVo> getList(int cateNo) {
-		System.out.println("PostDao > getList");
+	public List<PostVo> getList(Map<String, Object> dMap) {
+		//System.out.println("PostDao > getList");
 		
-		List<PostVo> pList = sqlSession.selectList("post.getList", cateNo);
-		System.out.println(pList);
+		List<PostVo> pList = sqlSession.selectList("post.getList", dMap);
+		//System.out.println(pList);
 		
 		return pList;
 	}
 	
 	//글 가져오기
-	public Map<String, String> getPost(int postNo) {
-		System.out.println("PostDao > getPost");
+	public Map<String, String> getPost(Map<String, Object> dMap) {
+		//System.out.println("PostDao > getPost");
 		
-		Map<String, String> pMap = sqlSession.selectOne("post.getPost", postNo);
-		System.out.println(pMap);
+		Map<String, String> pMap = sqlSession.selectOne("post.getPost", dMap);
+		//System.out.println(pMap);
 		
 		return pMap;
 	}

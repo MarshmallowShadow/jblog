@@ -63,6 +63,7 @@
 	<![CDATA[
 		select cateNo, cateName
 		from category
+		where id = #{value}
 		order by cateNo desc
 	]]>
 	</select>

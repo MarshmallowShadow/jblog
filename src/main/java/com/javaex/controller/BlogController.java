@@ -29,7 +29,7 @@ public class BlogController {
 			@RequestParam(value="cateNo", required=false, defaultValue="0") int cateNo,
 			@RequestParam(value="postNo", required=false, defaultValue="0") int postNo) {
 		//System.out.println("BlogController > getBlog");
-		//System.out.println(id);
+		System.out.println(id);
 		
 		Map<String, Object> blogMap = bService.getBlog(id, cateNo, postNo);
 		model.addAttribute("bMap", blogMap.get("bMap"));

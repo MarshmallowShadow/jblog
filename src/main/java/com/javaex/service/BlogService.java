@@ -35,7 +35,12 @@ public class BlogService {
 	public Map<String, Object> getBlog(String id, int cateNo, int postNo) {
 		//System.out.println("BlogService > getBlog");
 		
+		//컨트롤러로 한번에 보낼 정보
 		Map<String, Object> blogMap = new HashMap<>();
+		//다오로 보낼 정보
+		Map<String, Object> dMap = new HashMap<>();
+		dMap.put("id", id);
+		
 		//블로그 정보
 		Map<String, String> bMap = bDao.getBlog(id);
 		blogMap.put("bMap", bMap);
@@ -45,16 +50,22 @@ public class BlogService {
 		//개시글 영역
 		List<PostVo> pList = null;
 		if(cList != null && cateNo == 0 && postNo == 0) {
-			cateNo = cList.get(0).getCateNo();
+			if(cList.size() > 0) {
+				cateNo = cList.get(0).getCateNo();
+			}
 		}
-		pList = pDao.getList(cateNo);
+		dMap.put("cateNo", cateNo);
+		pList = pDao.getList(dMap);
 		blogMap.put("pList", pList);
 		//view용 개시글
 		Map<String, String> pMap = null;
 		if(pList != null && postNo == 0) {
-			postNo = pList.get(0).getPostNo();
+			if(pList.size() > 0) {
+				postNo = pList.get(0).getPostNo();
+			}
 		}
-		pMap = pDao.getPost(postNo);
+		dMap.put("postNo", postNo);
+		pMap = pDao.getPost(dMap);
 		blogMap.put("pMap", pMap);
 		
 		return blogMap;

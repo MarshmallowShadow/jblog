@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="comments">
+	<!-- 해당 포스트의 코멘트 리스트 가져오기 -->
 	<select id="getList" parameterType="int" resultType="map">
 	<![CDATA[
 		select userName, cmtContent, to_char(regDate, 'YYYY/MM/DD') REGDATE
@@ -10,5 +11,33 @@
 	]]>
 	</select>
 	
+	<!-- 코멘트 추가 -->
+	<insert id="addComment" parameterType="CommentVo">
+		<selectKey keyProperty="cmtNo" resultType="int" order="BEFORE">
+			select seq_comments_no.nextval from dual
+		</selectKey>
 	
+	<![CDATA[
+		insert into comments
+		values(#{cmtNo}, #{postNo}, #{userNo}, #{cmtContent}, sysdate)
+	]]>
+	</insert>
+	
+	<!-- 코멘트 추가할 정보 가져오기 -->
+	<select id="getComment" parameterType="int" resultType="map">
+	<![CDATA[
+		select userName, cmtContent, to_char(regDate, 'YYYY/MM/DD') REGDATE
+		from users u, comments c
+		where u.userNo = c.userNo
+		and cmtNo = #{cmtNo}
+	]]>
+	</select>
+	
+	<!-- 코멘트 삭제 -->
+	<delete id="delete" parameterType="int">
+	<![CDATA[
+		delete from comments
+		where cmtNo = #{cmtNo}
+	]]>
+	</delete>
 </mapper>
