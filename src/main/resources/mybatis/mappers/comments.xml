@@ -8,7 +8,7 @@
 		from users u, comments c
 		where u.userNo = c.userNo
 		and postNo = #{postNo}
-		order by regDate desc;
+		order by regDate desc
 	]]>
 	</select>
 	

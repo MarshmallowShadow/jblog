@@ -53,10 +53,10 @@ public class CategoryDao {
 	
 	//글 작성용 카테고리 가져오기
 	public List<CategoryVo> getNameList(String id) {
-		System.out.println("CategoryDao > getNameList");
+		//System.out.println("CategoryDao > getNameList");
 		
 		List<CategoryVo> cVo = sqlSession.selectList("category.getNameList", id);
-		System.out.println(cVo);
+		//System.out.println(cVo);
 		
 		return cVo;
 	}

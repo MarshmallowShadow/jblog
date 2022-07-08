@@ -75,7 +75,7 @@
 							<col style="">
 							<col style="width: 100px">
 						</colgroup>
-						<c:if test="${authUser != null }">
+						<c:if test="${authUser != null and pMap != null }">
 						<tr id="add_post">
 							<td><strong>${authUser.userName }</strong></td>
 							<td><input type="text" name="cmtContent" value=""></td>
@@ -156,7 +156,7 @@
 			cmtContent: cmtContent
 		};
 		
-		console.log(comVo);
+		//console.log(comVo);
 		
 		$.ajax({
 			url : "${pageContext.request.contextPath}/api/comments/addComment",
