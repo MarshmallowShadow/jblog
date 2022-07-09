@@ -1,5 +1,6 @@
 package com.javaex.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -58,4 +59,23 @@ public class BlogDao {
 		
 		return logoFile;
 	}
+	
+	//블로그 검색 리스트 가져오기
+	public List<Map<String, String>> searchList(Map<String, Object> sMap) {
+		//System.out.println("BlogDao > searchList");
+		
+		List<Map<String, String>> bList = sqlSession.selectList("blog.searchPageList", sMap);
+		//System.out.println(bList);
+		
+		return bList;
+	}
+	
+	//블로그 검색 결과 총 횟수
+	public int getSearchCount(Map<String, Object> sMap) {
+		System.out.println("BlogController > Map");
+		
+		int count = sqlSession.selectOne("blog.getSearchCount", sMap);
+		return count;
+	}
+	
 }

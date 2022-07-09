@@ -70,6 +70,4 @@ public class BlogController {
 		
 		return "redirect:/" + id;
 	}
-	
-	
 }

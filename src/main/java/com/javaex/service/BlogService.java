@@ -60,8 +60,8 @@ public class BlogService {
 		dMap.put("cateNo", cateNo);
 		if(cateNo != 0) {
 			//페이지 순번
-			int start = (pageNo-1) * 5 + 1;
-			int end = pageNo * 5;
+			int start = (pageNo-1) * 10 + 1;
+			int end = pageNo * 10;
 			
 			pList = pDao.getList(dMap, start, end);
 		}
@@ -85,7 +85,7 @@ public class BlogService {
 		if(postNo != 0) {
 			pageMap = new HashMap<>();
 			int currPage = pageNo;
-			int maxPage = (int)Math.ceil(pDao.getCount(cateNo)/(double)5);
+			int maxPage = (int)Math.ceil(pDao.getCount(cateNo)/(double)10);
 			//System.out.println(maxPage);
 			int startPage = ((int)Math.floor(pageNo/(double)5) * 5) + 1;
 			//System.out.println(startPage);

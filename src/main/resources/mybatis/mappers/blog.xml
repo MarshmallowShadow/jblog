@@ -50,4 +50,38 @@
 		where id = #{id}
 	]]>
 	</update>
+	
+	<!-- 블로그 검색 리스트 가져오기 -->
+	<select id="searchList" parameterType="map" resultType="map">
+	<![CDATA[
+		select logoFile, blogTitle, userName, b.id, to_char(joinDate, 'YYYY/MM/DD') JOINDATE
+		from users u, blog b
+		where u.id = b.id
+		and (blogTitle like #{optTitle} or userName like #{optName})
+		order by joinDate desc
+	]]>
+	</select>
+	
+	<!-- 블로그 검색 리스트 페이지별로 가져오기 -->
+	<select id="searchPageList" parameterType="map" resultType="map">
+	<![CDATA[
+		select rownum rn, logoFile, blogTitle, userName, id, JOINDATE
+		from (select rownum rn, logoFile, blogTitle, userName, id, JOINDATE
+		from (select logoFile, blogTitle, userName, b.id, to_char(joinDate, 'YYYY/MM/DD') JOINDATE
+		from users u, blog b
+		where u.id = b.id
+		and (blogTitle like #{optTitle} or userName like #{optName})
+		order by joinDate desc))
+		where rn >= #{start}
+		and rn <= #{end}
+	]]>
+	</select>
+	
+	<!-- 블로그 최대 횟수 가져오기 -->
+	<select id="getSearchCount" parameterType="map" resultType="int">
+		select count(*)
+		from users u, blog b
+		where u.id = b.id
+		and (blogTitle like #{optTitle} or userName like #{optName})
+	</select>
 </mapper>
