@@ -70,7 +70,7 @@
 			
 			</div>
 			<!-- //admin-content -->
-		</div>	
+		</div>
 		<!-- //content -->
 		
 		

@@ -9,6 +9,7 @@
 		<typeAlias alias="PostVo" type="com.javaex.vo.PostVo" />
 		<typeAlias alias="UserVo" type="com.javaex.vo.UserVo" />
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="mybatis/mappers/blog.xml" />
 		<mapper resource="mybatis/mappers/category.xml" />
@@ -16,4 +17,5 @@
 		<mapper resource="mybatis/mappers/post.xml" />
 		<mapper resource="mybatis/mappers/users.xml" />
 	</mappers>
+	
 </configuration>

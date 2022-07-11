@@ -35,12 +35,12 @@
 		      		</tr> 
 		      		<tr>
 		      			<td><label for="txtPassword">패스워드</label> </td>
-		      			<td><input id="txtPassword" type="password" name="password"  value=""></td>   
+		      			<td><input id="txtPassword" type="password" name="password" value=""></td>   
 		      			<td></td>  			
 		      		</tr> 
 		      		<tr>
 		      			<td><label for="txtUserName">이름</label> </td>
-		      			<td><input id="txtUserName" type="text" name="userName"  value=""></td>   
+		      			<td><input id="txtUserName" type="text" name="userName" value=""></td>   
 		      			<td></td>  			
 		      		</tr>  
 		      		<tr>
