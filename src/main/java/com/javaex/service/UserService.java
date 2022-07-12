@@ -42,7 +42,7 @@ public class UserService {
 			BlogVo bVo = new BlogVo();
 			bVo.setId(uVo.getId());
 			bVo.setBlogTitle(uVo.getUserName() + "의 블로그");
-			bVo.setLogoFile("/assets/images/spring-logo.jpg");
+			bVo.setLogoFile("s");
 			bCount = bDao.join(bVo);
 		}
 		
