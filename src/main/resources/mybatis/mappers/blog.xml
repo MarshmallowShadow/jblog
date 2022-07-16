@@ -84,4 +84,5 @@
 		where u.id = b.id
 		and (blogTitle like #{optTitle} or userName like #{optName})
 	</select>
+	
 </mapper>
