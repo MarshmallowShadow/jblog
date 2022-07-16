@@ -58,6 +58,7 @@ public class BlogService {
 			}
 		}
 		dMap.put("cateNo", cateNo);
+		
 		if(cateNo != 0) {
 			//페이지 순번
 			int start = (pageNo-1) * 10 + 1;
@@ -110,7 +111,6 @@ public class BlogService {
 			
 			blogMap.put("pageMap", pageMap);
 		}
-		
 		
 		return blogMap;
 	}
