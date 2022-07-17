@@ -68,6 +68,6 @@ public class BlogController {
 		
 		int count = bService.modify(bVo, file);
 		
-		return "redirect:/" + id;
+		return "redirect:/" + id + "/admin/basic";
 	}
 }
