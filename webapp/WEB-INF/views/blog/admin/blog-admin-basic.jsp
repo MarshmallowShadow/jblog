@@ -39,7 +39,7 @@
 			      		<tr>
 			      			<td><label>로고이미지</label></td>
 			      			<td class="text-left"><img src="${pageContext.request.contextPath}/${bMap.LOGOFILE}"></td>   
-			      		</tr>      		
+			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>
 			      			<td><input id="textLogo" type="file" name="file"></td>      			
