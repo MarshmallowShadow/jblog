@@ -1,6 +1,5 @@
 package com.javaex.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
 import com.javaex.vo.BlogVo;
-import com.javaex.vo.CategoryVo;
 import com.javaex.vo.UserVo;
 
 @Controller
