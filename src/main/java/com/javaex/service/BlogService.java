@@ -159,7 +159,6 @@ public class BlogService {
 		} else {
 			logoFile = bDao.getLogoFile(bVo.getId());
 		}
-		
 		//System.out.println(logoFile);
 		
 		bVo.setLogoFile(logoFile);
